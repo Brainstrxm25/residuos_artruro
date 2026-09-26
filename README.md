@@ -1,1 +1,0 @@
-# residuos_artruro
