@@ -10,18 +10,18 @@ import java.util.*;
 
 @Entity
 public class Quimico implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String quim_nombre;   // usamos el nombre como PK
+    private String quim_nombre;
     private String tipo_peligrosidad;
 
-    // Relación: un químico puede aparecer en varias composiciones
-    @OneToMany
-    @JoinColumn(name="comp_quim", nullable=false)
+    @OneToMany(mappedBy = "quimico")
     private List<Composicion_Quimico> quim_composiciones = new ArrayList<>();
 
-    public Quimico() {}
+    public Quimico() {
+    }
 
     public Quimico(String nombre, String tipo_peligrosidad) {
         this.quim_nombre = nombre;
