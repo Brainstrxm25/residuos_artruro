@@ -12,7 +12,7 @@ public class Composicion_Quimico implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String comp_nombre;   // clave primaria natural (ej. "Comp1", "MezclaA")
+    private String comp_nombre;   
     private double cantidad;
 
     // Relación: cada composición pertenece a un residuo
