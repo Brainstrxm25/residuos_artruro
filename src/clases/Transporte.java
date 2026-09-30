@@ -13,14 +13,15 @@ public class Transporte implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String trans_tipo;   // usamos el tipo de transporte como PK
+    @GeneratedValue
+    private Long id;
 
-    // Relación: cada transporte pertenece a un transportista
+    private String trans_tipo;
+
     @ManyToOne
     @JoinColumn(name="trans_transportista", nullable=false)
     private Transportista transportista;
 
-    // Relación: un transporte puede estar en muchos traslados
     @OneToMany
     @JoinColumn(name="tras_trans", nullable=false)
     private List<Traslado> trans_traslados = new ArrayList<>();
@@ -33,9 +34,10 @@ public class Transporte implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("\n-----\nTipo de Transporte: %s "
+        return String.format("\n-----\nID: %d | Tipo de Transporte: %s "
                 + "\nTransportista: %s "
                 + "\nTraslados realizados: %d\n",
+                this.id,
                 this.trans_tipo,
                 transportista != null ? transportista.getTrans_nombre() : "N/A",
                 trans_traslados.size());
@@ -48,16 +50,43 @@ public class Transporte implements Serializable {
         }
     }
 
-    // Métodos auxiliares
+    // Métodos form y drop para Transportista
+    public void formTrans_transportista(Transportista t) {
+        this.transportista = t;
+        if (t != null && !t.getTrans_transportes().contains(this)) {
+            t.getTrans_transportes().add(this);
+        }
+    }
+
+    public void dropTrans_transportista(Transportista t) {
+        if (this.transportista == t) {
+            this.transportista = null;
+            if (t != null) {
+                t.getTrans_transportes().remove(this);
+            }
+        }
+    }
+
+    // Métodos form y drop para Traslados
     public void formTrans_traslado(Traslado t) {
-        trans_traslados.add(t);
+        if (t != null && !trans_traslados.contains(t)) {
+            trans_traslados.add(t);
+            t.setTransporte(this);
+        }
     }
 
     public void dropTrans_traslado(Traslado t) {
-        trans_traslados.remove(t);
+        if (trans_traslados.remove(t)) {
+            if (t.getTransporte() == this) {
+                t.setTransporte(null);
+            }
+        }
     }
 
     // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
     public String getTrans_tipo() { return trans_tipo; }
     public void setTrans_tipo(String trans_tipo) { this.trans_tipo = trans_tipo; }
 
@@ -67,4 +96,3 @@ public class Transporte implements Serializable {
     public List<Traslado> getTrans_traslados() { return trans_traslados; }
     public void setTrans_traslados(List<Traslado> trans_traslados) { this.trans_traslados = trans_traslados; }
 }
-

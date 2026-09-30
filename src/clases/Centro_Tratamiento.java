@@ -13,10 +13,12 @@ public class Centro_Tratamiento implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String cen_descripcion;   // usamos la descripción como PK
+    @GeneratedValue
+    private Long id;
+
+    private String cen_descripcion;
     private String cen_ubicacion;
 
-    // Relación: un centro puede recibir muchos traslados
     @OneToMany
     @JoinColumn(name="tras_cen", nullable=false)
     private List<Traslado> cen_traslados = new ArrayList<>();
@@ -30,9 +32,10 @@ public class Centro_Tratamiento implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("\n-----\nCentro: %s "
+        return String.format("\n-----\nID: %d | Centro: %s "
                 + "\nUbicación: %s "
                 + "\nTraslados recibidos: %d\n",
+                this.id,
                 this.cen_descripcion,
                 this.cen_ubicacion,
                 cen_traslados.size());
@@ -45,16 +48,26 @@ public class Centro_Tratamiento implements Serializable {
         }
     }
 
-    // Métodos auxiliares para manejar la relación
+    // Métodos form y drop
     public void formCen_traslado(Traslado t) {
-        cen_traslados.add(t);
+        if (t != null && !cen_traslados.contains(t)) {
+            cen_traslados.add(t);
+            t.setCentro(this);
+        }
     }
 
     public void dropCen_traslado(Traslado t) {
-        cen_traslados.remove(t);
+        if (cen_traslados.remove(t)) {
+            if (t.getCentro() == this) {
+                t.setCentro(null);
+            }
+        }
     }
 
     // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
     public String getCen_descripcion() { return cen_descripcion; }
     public void setCen_descripcion(String cen_descripcion) { this.cen_descripcion = cen_descripcion; }
 
@@ -64,4 +77,6 @@ public class Centro_Tratamiento implements Serializable {
     public List<Traslado> getCen_traslados() { return cen_traslados; }
     public void setCen_traslados(List<Traslado> cen_traslados) { this.cen_traslados = cen_traslados; }
 }
+    
+    
 

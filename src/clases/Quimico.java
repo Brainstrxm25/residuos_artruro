@@ -14,14 +14,16 @@ public class Quimico implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
+    private Long id;
+
     private String quim_nombre;
     private String tipo_peligrosidad;
 
     @OneToMany(mappedBy = "quimico")
     private List<Composicion_Quimico> quim_composiciones = new ArrayList<>();
 
-    public Quimico() {
-    }
+    public Quimico() {}
 
     public Quimico(String nombre, String tipo_peligrosidad) {
         this.quim_nombre = nombre;
@@ -30,9 +32,10 @@ public class Quimico implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("\n-----\nNombre Químico: %s "
+        return String.format("\n-----\nID: %d | Nombre Químico: %s "
                 + "\nTipo de peligrosidad: %s "
                 + "\nUsado en composiciones: %d\n",
+                this.id,
                 this.quim_nombre,
                 this.tipo_peligrosidad,
                 quim_composiciones.size());
@@ -45,37 +48,32 @@ public class Quimico implements Serializable {
         }
     }
 
-    // Métodos auxiliares para manejar la relación
+    // Métodos form y drop
     public void formQuim_composicion(Composicion_Quimico cq) {
-        quim_composiciones.add(cq);
+        if (cq != null && !quim_composiciones.contains(cq)) {
+            quim_composiciones.add(cq);
+            cq.setQuimico(this);
+        }
     }
 
     public void dropQuim_composicion(Composicion_Quimico cq) {
-        quim_composiciones.remove(cq);
+        if (quim_composiciones.remove(cq)) {
+            if (cq.getQuimico() == this) {
+                cq.setQuimico(null);
+            }
+        }
     }
 
     // Getters y Setters
-    public String getQuim_nombre() {
-        return quim_nombre;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setQuim_nombre(String quim_nombre) {
-        this.quim_nombre = quim_nombre;
-    }
+    public String getQuim_nombre() { return quim_nombre; }
+    public void setQuim_nombre(String quim_nombre) { this.quim_nombre = quim_nombre; }
 
-    public String getTipo_peligrosidad() {
-        return tipo_peligrosidad;
-    }
+    public String getTipo_peligrosidad() { return tipo_peligrosidad; }
+    public void setTipo_peligrosidad(String tipo_peligrosidad) { this.tipo_peligrosidad = tipo_peligrosidad; }
 
-    public void setTipo_peligrosidad(String tipo_peligrosidad) {
-        this.tipo_peligrosidad = tipo_peligrosidad;
-    }
-
-    public List<Composicion_Quimico> getQuim_composiciones() {
-        return quim_composiciones;
-    }
-
-    public void setQuim_composiciones(List<Composicion_Quimico> quim_composiciones) {
-        this.quim_composiciones = quim_composiciones;
-    }
+    public List<Composicion_Quimico> getQuim_composiciones() { return quim_composiciones; }
+    public void setQuim_composiciones(List<Composicion_Quimico> quim_composiciones) { this.quim_composiciones = quim_composiciones; }
 }
