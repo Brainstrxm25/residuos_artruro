@@ -8,6 +8,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ * Entidad persistente que representa un centro de tratamiento.
+ * Las anotaciones JPA indican cómo ObjectDB guarda sus datos y relaciones.
+ */
 @Entity
 public class Centro_Tratamiento implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -21,13 +25,16 @@ public class Centro_Tratamiento implements Serializable {
     @JoinColumn(name="tras_cen", nullable=false)
     private List<Traslado> cen_traslados = new ArrayList<>();
 
+    // Constructor vacío requerido por JPA/ObjectDB.
     public Centro_Tratamiento() {}
 
+    // Constructor de apoyo para crear objetos desde interfaces o pruebas.
     public Centro_Tratamiento(String descripcion, String ubicacion) {
         this.cen_descripcion = descripcion;
         this.cen_ubicacion = ubicacion;
     }
 
+    // Texto legible utilizado al imprimir o mostrar objetos.
     @Override
     public String toString() {
         return String.format("\n-----\nCentro: %s "

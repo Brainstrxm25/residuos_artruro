@@ -8,6 +8,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ * Entidad persistente que representa un tipo de envase.
+ * Las anotaciones JPA indican cómo ObjectDB guarda sus datos y relaciones.
+ */
 @Entity
 public class Envase implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -21,13 +25,16 @@ public class Envase implements Serializable {
     @JoinColumn(name="res_env", nullable=false)
     private List<Residuo> env_residuos = new ArrayList<>();
 
+    // Constructor vacío requerido por JPA/ObjectDB.
     public Envase() {}
 
+    // Constructor de apoyo para crear objetos desde interfaces o pruebas.
     public Envase(String descripcion, String categoria_material) {
         this.env_descripcion = descripcion;
         this.categoria_material = categoria_material;
     }
 
+    // Texto legible utilizado al imprimir o mostrar objetos.
     @Override
     public String toString() {
         return String.format("\n-----\nDescripción Envase: %s "

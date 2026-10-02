@@ -8,6 +8,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ * Entidad persistente que representa un transportista.
+ * Las anotaciones JPA indican cómo ObjectDB guarda sus datos y relaciones.
+ */
 @Entity
 public class Transportista implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -22,14 +26,17 @@ public class Transportista implements Serializable {
     @JoinColumn(name="trans_transportista", nullable=false)
     private List<Transporte> trans_transportes = new ArrayList<>();
 
+    // Constructor vacío requerido por JPA/ObjectDB.
     public Transportista() {}
 
+    // Constructor de apoyo para crear objetos desde interfaces o pruebas.
     public Transportista(String nombre, String direccion, String telefono) {
         this.trans_nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
     }
 
+    // Texto legible utilizado al imprimir o mostrar objetos.
     @Override
     public String toString() {
         return String.format("\n-----\nTransportista: %s "

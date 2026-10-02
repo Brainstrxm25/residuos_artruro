@@ -8,8 +8,10 @@ import clases.*;
 import javax.persistence.*;
 import java.util.*;
 
+/** Ejemplos de consultas JPQL/ObjectDB sobre la entidad Residuo. */
 public class QResiduosConsultas {
 
+    // Punto de entrada de esta consulta de prueba.
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("$objectdb/db/residuosdb.odb");
         EntityManager em = emf.createEntityManager();

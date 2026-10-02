@@ -8,6 +8,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ * Entidad persistente que representa el traslado de un residuo.
+ * Las anotaciones JPA indican cómo ObjectDB guarda sus datos y relaciones.
+ */
 @Entity
 public class Traslado implements Serializable {
 
@@ -46,9 +50,11 @@ public class Traslado implements Serializable {
     @JoinColumn(name = "tras_trans", nullable = false)
     private Transporte transporte;
 
+    // Constructor vacío requerido por JPA/ObjectDB.
     public Traslado() {
     }
 
+    // Constructor de apoyo para crear objetos desde interfaces o pruebas.
     public Traslado(String origen, double cantidad, String inicio, String llegada,
             double costo, double km) {
         this.tras_origen = origen;
@@ -59,6 +65,7 @@ public class Traslado implements Serializable {
         this.km_recorridos = km;
     }
 
+    // Texto legible utilizado al imprimir o mostrar objetos.
     @Override
     public String toString() {
         return String.format("\n-----\nTraslado desde: %s "

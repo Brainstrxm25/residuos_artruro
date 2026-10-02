@@ -8,6 +8,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ * Entidad persistente que representa una empresa del sistema.
+ * Las anotaciones JPA indican cómo ObjectDB guarda sus datos y relaciones.
+ */
 @Entity
 public class Empresa implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -20,13 +24,16 @@ public class Empresa implements Serializable {
     @JoinColumn(name="res_emp", nullable=false)
     private List<Residuo> emp_residuos = new ArrayList<Residuo>();
 
+    // Constructor vacío requerido por JPA/ObjectDB.
     public Empresa() {}
 
+    // Constructor de apoyo para crear objetos desde interfaces o pruebas.
     public Empresa(String nombre, String ubicacion) {
         this.emp_nombre = nombre;
         this.emp_ubicacion = ubicacion;
     }
 
+    // Texto legible utilizado al imprimir o mostrar objetos.
     @Override
     public String toString() {
         return String.format("\n-----\nNombre Empresa: %s "

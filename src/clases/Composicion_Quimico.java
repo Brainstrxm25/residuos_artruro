@@ -7,6 +7,10 @@ package clases;
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**
+ * Entidad persistente que relaciona un residuo con un químico.
+ * Las anotaciones JPA indican cómo ObjectDB guarda sus datos y relaciones.
+ */
 @Entity
 public class Composicion_Quimico implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -25,13 +29,16 @@ public class Composicion_Quimico implements Serializable {
     @JoinColumn(name="comp_quim", nullable=false)
     private Quimico quimico;
 
+    // Constructor vacío requerido por JPA/ObjectDB.
     public Composicion_Quimico() {}
 
+    // Constructor de apoyo para crear objetos desde interfaces o pruebas.
     public Composicion_Quimico(String nombre, double cantidad) {
         this.comp_nombre = nombre;
         this.cantidad = cantidad;
     }
 
+    // Texto legible utilizado al imprimir o mostrar objetos.
     @Override
     public String toString() {
         return String.format("\n-----\nNombre Composición: %s "

@@ -8,6 +8,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ * Entidad persistente que representa un químico y su peligrosidad.
+ * Las anotaciones JPA indican cómo ObjectDB guarda sus datos y relaciones.
+ */
 @Entity
 public class Quimico implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -21,13 +25,16 @@ public class Quimico implements Serializable {
     @JoinColumn(name="comp_quim", nullable=false)
     private List<Composicion_Quimico> quim_composiciones = new ArrayList<>();
 
+    // Constructor vacío requerido por JPA/ObjectDB.
     public Quimico() {}
 
+    // Constructor de apoyo para crear objetos desde interfaces o pruebas.
     public Quimico(String nombre, String tipo_peligrosidad) {
         this.quim_nombre = nombre;
         this.tipo_peligrosidad = tipo_peligrosidad;
     }
 
+    // Texto legible utilizado al imprimir o mostrar objetos.
     @Override
     public String toString() {
         return String.format("\n-----\nNombre Químico: %s "

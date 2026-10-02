@@ -8,6 +8,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
 
+/** Programa auxiliar para verificar la versión y activación de ObjectDB. */
 public class Activi {
 
     public static void main(String[] args) {

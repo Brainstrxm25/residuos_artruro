@@ -8,6 +8,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ * Entidad persistente que representa un tipo de tratamiento.
+ * Las anotaciones JPA indican cómo ObjectDB guarda sus datos y relaciones.
+ */
 @Entity
 public class Tipo_Tratamiento implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -20,12 +24,15 @@ public class Tipo_Tratamiento implements Serializable {
     @JoinColumn(name="tras_trat", nullable=false)
     private List<Traslado> trat_traslados = new ArrayList<>();
 
+    // Constructor vacío requerido por JPA/ObjectDB.
     public Tipo_Tratamiento() {}
 
+    // Constructor de apoyo para crear objetos desde interfaces o pruebas.
     public Tipo_Tratamiento(String descripcion) {
         this.trat_descripcion = descripcion;
     }
 
+    // Texto legible utilizado al imprimir o mostrar objetos.
     @Override
     public String toString() {
         return String.format("\n-----\nTipo de Tratamiento: %s "

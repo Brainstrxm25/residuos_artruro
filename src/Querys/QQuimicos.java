@@ -8,8 +8,10 @@ import clases.Quimico;
 import java.util.*;
 import javax.persistence.*;
 
+/** Consulta de prueba para listar químicos almacenados en ObjectDB. */
 public class QQuimicos {
 
+    // Punto de entrada de esta consulta de prueba.
     public static void main(String[] args) {
         // Abrir conexión a la base de datos (crear si no existe)
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("$objectdb/db/residuosdb.odb");

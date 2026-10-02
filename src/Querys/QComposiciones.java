@@ -8,8 +8,10 @@ import clases.Composicion_Quimico;
 import java.util.*;
 import javax.persistence.*;
 
+/** Consulta de prueba para listar composiciones químicas y sus relaciones. */
 public class QComposiciones {
 
+    // Punto de entrada de esta consulta de prueba.
     public static void main(String[] args) {
         // Abrir conexión a la base de datos (crear si no existe)
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("$objectdb/db/residuosdb.odb");

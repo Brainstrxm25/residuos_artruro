@@ -8,6 +8,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ * Entidad persistente que representa un residuo y sus relaciones.
+ * Las anotaciones JPA indican cómo ObjectDB guarda sus datos y relaciones.
+ */
 @Entity
 public class Residuo implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -31,13 +35,16 @@ public class Residuo implements Serializable {
     @JoinColumn(name="comp_res", nullable=false)
     private List<Composicion_Quimico> res_composiciones = new ArrayList<>();
 
+    // Constructor vacío requerido por JPA/ObjectDB.
     public Residuo() {}
 
+    // Constructor de apoyo para crear objetos desde interfaces o pruebas.
     public Residuo(String nombre, double cantidad_total) {
         this.res_nombre = nombre;
         this.cantidad_total = cantidad_total;
     }
 
+    // Texto legible utilizado al imprimir o mostrar objetos.
     @Override
     public String toString() {
         return String.format("\n-----\nNombre Residuo: %s "

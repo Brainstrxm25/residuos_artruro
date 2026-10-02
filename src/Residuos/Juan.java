@@ -4,10 +4,7 @@
  */
 package Residuos;
 
-/**
- *
- * @author THUNDEROBOT
- */
+/** Clase auxiliar actualmente vacía; puede reutilizarse para futuras pruebas. */
 public class Juan {
     
 }
